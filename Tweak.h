@@ -2,6 +2,8 @@
 
 static HBPreferences *preferences;
 
+static BOOL enabled;
+
 static NSString *iconColor;
 static NSString *hourColor;
 static NSString *minuteColor;

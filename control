@@ -1,10 +1,10 @@
 Package: com.chr1s.digitalclock
 Name: DigitalClock
-Version: 1.0.4
+Version: 1.0.7
 Architecture: iphoneos-arm
 Description: Customizable digital clock app icon
 Icon: https://chr1s.dev/assets/digitalclock.png
 Maintainer: Chr1s
 Author: Chr1s
 Section: Tweaks
-Depends: mobilesubstrate (>= 0.9.5000), ws.hbang.common (>= 1.15.1), ws.hbang.alderis (>= 1.1)
+Depends: mobilesubstrate (>= 0.9.5000), preferenceloader, ws.hbang.common (>= 1.15.1), ws.hbang.alderis (>= 1.1)

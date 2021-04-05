@@ -58,7 +58,7 @@
 - (void)setIcon:(id)arg1 location:(id)arg2 animated:(bool)arg3 {
 	%orig;
 
-	if (![preferences boolForKey:@"enabled"]) return;
+	if (!enabled) return;
 
 	if ([[self subviews] count] > 0) return;
 
@@ -138,9 +138,32 @@
 
 %end
 
+/* @interface SpringBoard
+-(void)applicationDidFinishLaunching:(id)arg1;
+@end
+
+%hook SpringBoard
+-(void)applicationDidFinishLaunching:(id)arg1 {
+	%orig;
+
+	NSString *message = @"Thanks for testing the beta, if you find any bugs PLEASE report them to chris@chr1s.dev, DM my twitter @Chr1sDev or on discord at christopher#8888 (I'm also in the r/jb discord server) I am eager to release this tweak, but I am getting mixed signals as to how well it's working. So, any help you can give is very much appreciated.";
+	
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"DigitalClock BETA"
+										message:message 
+										delegate:self 
+										cancelButtonTitle:@"OK" 
+										otherButtonTitles:nil];
+	[alert show];
+
+}
+%end */
+
+
+
 %ctor {
 	NSLog(@"DigitalClock.dylib loaded");
 	preferences = [[HBPreferences alloc] initWithIdentifier:@"com.chr1s.digitalclockprefs"];
+	[preferences registerBool:&enabled default:YES forKey:@"enabled"];
 	[preferences registerObject:&iconColor default:@"#FFFFFF" forKey:@"iconColor"];
 	[preferences registerObject:&hourColor default:@"#000000" forKey:@"hourColor"];
 	[preferences registerObject:&minuteColor default:@"#FF2D55" forKey:@"minuteColor"];
