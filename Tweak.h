@@ -3,6 +3,7 @@
 static HBPreferences *preferences;
 
 static BOOL enabled;
+static BOOL militaryTime;
 
 static NSString *iconColor;
 static NSString *hourColor;

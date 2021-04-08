@@ -27,12 +27,21 @@
 	NSDateFormatter *minutesFormat;
 	NSDateFormatter *amPm;
 
+
 	amPm = [[NSDateFormatter alloc] init];
+	amPm.dateStyle = NSDateFormatterMediumStyle;
+	amPm.timeStyle = NSDateFormatterNoStyle;
 	[amPm setDateFormat:@"a"];
+	amPm.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+
 	now = [NSDate date];
 	hourFormat = [[NSDateFormatter alloc] init];
 	//Add option for 24 hour or 12 hour time      HH = 24hr     hh = 12hr
-	[hourFormat setDateFormat:@"hh"];
+	if (militaryTime) {
+		[hourFormat setDateFormat:@"HH"];
+	} else {
+		[hourFormat setDateFormat:@"hh"];
+	}
 	minutesFormat = [[NSDateFormatter alloc] init];
 	[minutesFormat setDateFormat:@"mm"];
 
@@ -66,17 +75,25 @@
 	NSDate *now = [NSDate date];
 	NSDateFormatter *hourFormat = [[NSDateFormatter alloc] init];
 	//Add option for 24 hour or 12 hour time      HH = 24hr     hh = 12hr
-	[hourFormat setDateFormat:@"hh"];
+	if (militaryTime) {
+		[hourFormat setDateFormat:@"HH"];
+	} else {
+		[hourFormat setDateFormat:@"hh"];
+	}
 	NSDateFormatter *minutesFormat = [[NSDateFormatter alloc] init];
 	[minutesFormat setDateFormat:@"mm"];
+
 	NSDateFormatter *amPm = [[NSDateFormatter alloc] init];
+	amPm.dateStyle = NSDateFormatterMediumStyle;
+	amPm.timeStyle = NSDateFormatterNoStyle;
 	[amPm setDateFormat:@"a"];
+	amPm.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
 	/*      */
 		
 	DigitalClockView *digiView = [[DigitalClockView alloc] initWithFrame:self.frame];
 	digiView.backgroundColor = [UIColor pf_colorWithHexString:iconColor alpha:1.0];
 	// digiView.backgroundColor = UIColor.whiteColor;
-	digiView.layer.cornerRadius = 13.5;
+	digiView.layer.cornerRadius = (float)[preferences integerForKey:@"cornerRadius"] + 0.5;
 	digiView.flx_continuousCorners = YES;
 	digiView.layer.zPosition = 1;
 
@@ -138,32 +155,48 @@
 
 %end
 
-/* @interface SpringBoard
+@interface SpringBoard
 -(void)applicationDidFinishLaunching:(id)arg1;
 @end
 
-%hook SpringBoard
--(void)applicationDidFinishLaunching:(id)arg1 {
-	%orig;
+// %hook SpringBoard
+// -(void)applicationDidFinishLaunching:(id)arg1 {
+// 	%orig;
 
-	NSString *message = @"Thanks for testing the beta, if you find any bugs PLEASE report them to chris@chr1s.dev, DM my twitter @Chr1sDev or on discord at christopher#8888 (I'm also in the r/jb discord server) I am eager to release this tweak, but I am getting mixed signals as to how well it's working. So, any help you can give is very much appreciated.";
+// 	NSDateFormatter *localTime = [[NSDateFormatter alloc] init];
+// 	localTime.dateStyle = NSDateFormatterMediumStyle;
+// 	localTime.timeStyle = NSDateFormatterNoStyle;
+// 	[localTime setDateFormat:@"a"];
+
+// 	NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
+// 	timeFormatter.dateStyle = NSDateFormatterMediumStyle;
+// 	timeFormatter.timeStyle = NSDateFormatterNoStyle;
+// 	[timeFormatter setDateFormat:@"a"];
+// 	timeFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+
+// 	NSDate *date = [NSDate date];
+// 	// NSLog(@"%@", [enTime descriptionWithLocale:[NSLocale localeWithLocaleIdentifier:@"en_US"]]);
+
+// 	NSString *message = [NSString stringWithFormat:@"en_US: %@\nlocal: %@", [timeFormatter stringFromDate:date], [localTime stringFromDate:date]];
 	
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"DigitalClock BETA"
-										message:message 
-										delegate:self 
-										cancelButtonTitle:@"OK" 
-										otherButtonTitles:nil];
-	[alert show];
+// 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"↓↓ This should say 'PM' ↓↓"
+// 										message:message 
+// 										delegate:self 
+// 										cancelButtonTitle:@"OK" 
+// 										otherButtonTitles:nil];
+// 	[alert show];
 
-}
-%end */
+// }
+// %end
 
 
 
 %ctor {
 	NSLog(@"DigitalClock.dylib loaded");
 	preferences = [[HBPreferences alloc] initWithIdentifier:@"com.chr1s.digitalclockprefs"];
+	// [preferences registerInteger:&radius default:13 forKey:@"cornerRadius"];
 	[preferences registerBool:&enabled default:YES forKey:@"enabled"];
+	[preferences registerBool:&militaryTime default:NO forKey:@"militaryTime"];
 	[preferences registerObject:&iconColor default:@"#FFFFFF" forKey:@"iconColor"];
 	[preferences registerObject:&hourColor default:@"#000000" forKey:@"hourColor"];
 	[preferences registerObject:&minuteColor default:@"#FF2D55" forKey:@"minuteColor"];

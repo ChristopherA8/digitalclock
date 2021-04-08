@@ -139,6 +139,48 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
+			<string>Corner Radius</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSliderCell</string>
+			<key>cellClass</key>
+			<string>HBDiscreteSliderTableCell</string>
+			<key>default</key>
+			<real>13.5</real>
+			<key>defaults</key>
+			<string>com.chr1s.digitalclockprefs</string>
+			<key>key</key>
+			<string>cornerRadius</string>
+			<key>label</key>
+			<string>Corner Radius</string>
+			<key>max</key>
+			<real>30</real>
+			<key>min</key>
+			<real>0</real>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>12/24hr time</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.chr1s.digitalclockprefs</string>
+			<key>key</key>
+			<string>militaryTime</string>
+			<key>label</key>
+			<string>24hr Time</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
 			<string></string>
 		</dict>
 		<dict>
