@@ -93,7 +93,7 @@
 	DigitalClockView *digiView = [[DigitalClockView alloc] initWithFrame:self.frame];
 	digiView.backgroundColor = [UIColor pf_colorWithHexString:iconColor alpha:1.0];
 	// digiView.backgroundColor = UIColor.whiteColor;
-	digiView.layer.cornerRadius = (float)[preferences integerForKey:@"cornerRadius"] + 0.5;
+	digiView.layer.cornerRadius = [preferences integerForKey:@"cornerRadius"] ? ((float)[preferences integerForKey:@"cornerRadius"] + 0.5) : 13.5;
 	digiView.flx_continuousCorners = YES;
 	digiView.layer.zPosition = 1;
 
